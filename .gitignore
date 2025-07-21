@@ -1,0 +1,26 @@
+# Ignorar carpetas de dependencias
+    node_modules/
+
+# Ignorar archivos de variables de entorno (sensibles)
+    .env
+
+# Ignorar archivos de construcción de React (si se crean en la raíz)
+    build/
+    dist/
+
+# Ignorar logs de npm
+    npm-debug.log*
+    yarn-debug.log*
+    yarn-error.log*
+
+# Ignorar archivos de sistema operativo
+    .DS_Store
+    Thumbs.db
+
+# Ignorar archivos de VS Code
+    .vscode/
+
+# Ignorar archivos de caché
+    .cache/
+    .eslintcache
+    
