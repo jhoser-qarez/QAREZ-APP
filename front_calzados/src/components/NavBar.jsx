@@ -8,8 +8,9 @@
           <div className="container mx-auto flex justify-between items-center">
             {/* Logo o Nombre de la Tienda */}
             <Link to="/" className="text-2xl font-bold text-white hover:text-blue-300 transition-colors duration-200">
-              👟 Calzados Flavia
+              👟 i QAREZ
             </Link>
+        
 
             {/* Enlaces de Navegación */}
             <div className="space-x-6 flex items-center">
