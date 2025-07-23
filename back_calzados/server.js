@@ -118,10 +118,10 @@ app.listen(PORT, () => {
     console.log(`🚀 Servidor Express escuchando en el puerto ${PORT}`);
     console.log(`Accede a http://localhost:${PORT} en tu navegador para verificar.`);
 });
+// Servir archivos estáticos
+app.use('/uploads', express.static('uploads'));
 
 //Configuración carga de imágenes
 const uploadRoutes = require('./routes/uploadRoutes');
-app.use('/api', uploadRoutes);
+app.use('/api/upload', uploadRoutes);
 
-// Servir archivos estáticos
-app.use('/uploads', express.static('uploads'));
