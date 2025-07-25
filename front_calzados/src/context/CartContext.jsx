@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import React, { createContext,useEffect, useReducer } from 'react';
 
 // ✅ Estado inicial con datos persistidos desde localStorage
 const initialState = {
@@ -49,11 +49,10 @@ function cartReducer(state, action) {
 
 // ✅ Crear contexto
 const CartContext = createContext();
+export { CartContext };
 
 // ✅ Hook personalizado para consumir el contexto
-export function useCart() {
-  return useContext(CartContext);
-}
+
 
 // ✅ Proveedor del contexto
 export function CartProvider({ children }) {

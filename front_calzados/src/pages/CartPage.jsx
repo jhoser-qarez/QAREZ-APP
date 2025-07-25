@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCartHook';;
 import { toast } from 'react-toastify';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function CartPage() {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
@@ -52,7 +54,7 @@ function CartPage() {
             className="flex flex-col md:flex-row items-center md:items-start bg-white p-4 rounded-lg shadow-md"
           >
             <img
-              src={`http://localhost:5000${item.imagen}` || 'https://placehold.co/120x120'}
+              src={item.imagen ? `${API_BASE_URL}/${item.imagen}` : 'https://placehold.co/120x120'}
               alt={item.nombre}
               className="w-28 h-28 object-cover rounded-md mr-4"
               onError={(e) => {

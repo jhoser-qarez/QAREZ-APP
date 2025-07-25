@@ -2,12 +2,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 function ProductCard({ product }) {
   // Construcción de la URL de imagen correctamente
   const imageUrl =
-    product.imagenes && product.imagenes.length > 0
-      ? `http://localhost:5000${product.imagenes[0]}`
-      : 'https://placehold.co/400x300/cccccc/333333?text=No+Image';
+  product.imagenes && product.imagenes.length > 0
+    ? `${API_BASE_URL}${product.imagenes[0]}` // <-- CAMBIO AQUÍ
+    : 'https://placehold.co/400x300/cccccc/333333?text=No+Image';
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useCart } from '../context/CartContext'; // ✅ Hook del carrito
+import { useCart } from '../context/useCartHook';// ✅ Hook del carrito
 import { toast } from 'react-toastify'; // ✅ Notificaciones tipo toast
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function ProductDetail() {
   const { id } = useParams();
@@ -18,7 +20,7 @@ function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/api/products/${id}`);
         setProduct(response.data);
 
         if (response.data.variantes && response.data.variantes.length > 0) {
@@ -96,7 +98,7 @@ function ProductDetail() {
         {/* Imágenes */}
         <div className="flex flex-col items-center">
           <img
-            src={activeImage ? `http://localhost:5000${activeImage}` : 'https://placehold.co/600x450/cccccc/333333?text=No+Image'}
+            src={activeImage ? `${API_BASE_URL}${activeImage}` : 'https://placehold.co/600x450/cccccc/333333?text=No+Image'}
             alt={product.nombre}
             className="w-full max-w-md h-auto rounded-lg shadow-md object-cover"
             onError={(e) => {
@@ -108,7 +110,7 @@ function ProductDetail() {
             {product.imagenes.map((img, index) => (
               <img
                 key={index}
-                src={`http://localhost:5000${img}`}
+                src={`${API_BASE_URL}${img}`}
                 alt={`${product.nombre} - ${index + 1}`}
                 className="w-20 h-20 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-blue-500"
                 onClick={() => setActiveImage(img)}

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 function UploadImage() {
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -18,7 +20,7 @@ function UploadImage() {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:5000/api/upload", formData);
+      const res = await axios.post(`${API_BASE_URL}/api/upload`, formData);
       setImageUrl(res.data.imageUrl);
       setError("");
     } catch (err) {
@@ -55,12 +57,12 @@ function UploadImage() {
               <div className="mt-4">
                   <p className="text-green-600">Imagen subida exitosamente:</p>
                   <img
-                      src={`http://localhost:5000${imageUrl}`}
+                      src={`${API_BASE_URL}${imageUrl}`}
                       alt="Preview"
                       className="mt-2 w-48 rounded shadow"
                   />
                   <p className="mt-2 text-sm text-gray-700 break-all">
-                      URL: <code>http://localhost:5000{imageUrl}</code>
+                      URL: <code>${API_BASE_URL}${imageUrl}</code>
                   </p>
               </div>
           )}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useCart } from '../context/CartContext'; // ✅ Importamos el contexto del carrito
+import { useCart } from '../context/useCartHook'; // ✅ Importamos el contexto del carrito
 
 function Navbar() {
   const { cartItems } = useCart(); // ✅ Accedemos al carrito global

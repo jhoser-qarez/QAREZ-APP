@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCartHook';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function Checkout() {
   const { cartItems, clearCart } = useCart();
@@ -59,7 +61,7 @@ function Checkout() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/orders', {
+      const response = await axios.post(`${API_BASE_URL}/api/orders`, {
         ...form,
         items: cartItems.map(item => ({
           productId: item._id,

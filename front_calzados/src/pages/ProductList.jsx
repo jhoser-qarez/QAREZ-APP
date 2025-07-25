@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Para hacer peticiones HTTP a tu backend
 import ProductCard from '../components/ProductCard'; // Importamos el componente ProductCard
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 function ProductList() {
   const [products, setProducts] = useState([]); // Estado para almacenar los productos
   const [loading, setLoading] = useState(true); // Estado para indicar si los productos están cargando
@@ -14,7 +16,7 @@ function ProductList() {
       try {
         // Realizamos una petición GET a tu backend para obtener los productos
         // Asegúrate de que tu backend esté corriendo en http://localhost:5000
-        const response = await axios.get('http://localhost:5000/api/products');
+        const response = await axios.get(`${API_BASE_URL}/api/products`);
         setProducts(response.data); // Guardamos los productos en el estado
         setLoading(false); // Indicamos que la carga ha terminado
       } catch (err) {

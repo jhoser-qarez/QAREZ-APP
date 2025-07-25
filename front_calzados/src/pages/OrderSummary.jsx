@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCartHook';
 import { toast } from 'react-toastify';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function OrderSummary() {
   const [orden, setOrden] = useState(null);
@@ -43,7 +45,7 @@ function OrderSummary() {
             className="flex flex-col md:flex-row items-center bg-gray-100 p-4 rounded-lg shadow-sm"
           >
             <img
-              src={`http://localhost:5000${item.imagen}` || 'https://placehold.co/120x120'}
+              src={item.imagen ? `${API_BASE_URL}/${item.imagen}` : 'https://placehold.co/120x120'}
               alt={item.nombre}
               className="w-24 h-24 object-cover rounded-md mr-4"
               onError={(e) => {
