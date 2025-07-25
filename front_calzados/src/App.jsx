@@ -26,10 +26,11 @@ function App() {
               <p className="text-xl text-gray-700">Explora nuestra colección y encuentra tu par perfecto.</p>
               <Link
                 to="/products"
-                className="mt-8 inline-block bg-blue-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+                className="mt-8 inline-block bg-red-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-red-900 transition-all duration-300 transform hover:scale-105"
               >
                 Ver Productos
               </Link>
+              
             </div>
           } />
 

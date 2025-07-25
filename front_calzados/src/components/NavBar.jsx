@@ -11,7 +11,7 @@ function Navbar() {
 
         {/* Logo o Nombre de la Tienda */}
         <Link to="/" className="text-2xl font-bold text-white hover:text-blue-300 transition-colors duration-200">
-          👟 i QAREZ
+          👟 Calzados Yeremi
         </Link>
 
         {/* Enlaces de Navegación */}

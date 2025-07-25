@@ -122,7 +122,7 @@ function Checkout() {
         <select name="metodoEnvio" required value={form.metodoEnvio} onChange={handleChange} className="input">
           <option value="">Selecciona una opción</option>
           <option value="envio">Envío a domicilio (S/.10)</option>
-          <option value="Recojo en tienda">Recojo en tienda (Gratis)</option>
+          <option value="recoger">Recojo en tienda (Gratis)</option>
         </select>
 
         {/* Pago */}
