@@ -23,7 +23,26 @@ const app = express();
 // --- Middlewares ---
 // CORS: Permite que tu frontend (que estará en un dominio diferente) pueda hacer peticiones a este backend.
 // En desarrollo, permitimos cualquier origen (*). En producción, deberías especificar el dominio de tu frontend.
-app.use(cors());
+
+
+const allowedOrigins = [
+  process.env.CORS_ORIGIN, // Este será el dominio de tu frontend en producción (ej: https://tudominio.com)
+  'http://localhost:5173', // El puerto común de Vite en desarrollo (puede ser otro si lo configuraste)
+  'http://127.0.0.1:5173', // Por si acaso localhost se resuelve así
+].filter(Boolean); // Esto filtra valores nulos si CORS_ORIGIN no está definido en el entorno
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Permite solicitudes sin un "Origin" (como Postman o curl sin especificarlo)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.log(`CORS Error: Origin ${origin} not allowed`); // Mensaje para depuración en los logs de Render
+            callback(new Error('No permitido por CORS'));
+        }
+    },
+    credentials: true // Crucial si tu backend maneja sesiones, cookies o tokens con credenciales
+}));
 
 // Express.json(): Permite que Express entienda y parseé el cuerpo de las peticiones en formato JSON.
 // Esto es crucial para recibir datos del frontend (ej. cuando subes un producto o haces un pedido).
