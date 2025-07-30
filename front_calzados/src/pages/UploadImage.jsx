@@ -20,7 +20,8 @@ function UploadImage() {
 
     try {
       setLoading(true);
-      const res = await axios.post(`${API_BASE_URL}/api/upload`, formData);
+      // ✅ CORRECCIÓN AQUÍ: La URL debe ser /api/upload/upload para coincidir con tu backend
+      const res = await axios.post(`${API_BASE_URL}/api/upload/upload`, formData);
       setImageUrl(res.data.imageUrl);
       setError("");
     } catch (err) {
@@ -53,19 +54,19 @@ function UploadImage() {
 
       {error && <p className="text-red-500 mt-2">{error}</p>}
 
-          {imageUrl && (
-              <div className="mt-4">
-                  <p className="text-green-600">Imagen subida exitosamente:</p>
-                  <img
-                      src={`${API_BASE_URL}${imageUrl}`}
-                      alt="Preview"
-                      className="mt-2 w-48 rounded shadow"
-                  />
-                  <p className="mt-2 text-sm text-gray-700 break-all">
-                      URL: <code>${API_BASE_URL}${imageUrl}</code>
-                  </p>
-              </div>
-          )}
+        {imageUrl && (
+            <div className="mt-4">
+                <p className="text-green-600">Imagen subida exitosamente:</p>
+                <img
+                    src={`${API_BASE_URL}${imageUrl}`}
+                    alt="Preview"
+                    className="mt-2 w-48 rounded shadow"
+                />
+                <p className="mt-2 text-sm text-gray-700 break-all">
+                    URL: <code>${API_BASE_URL}${imageUrl}</code>
+                </p>
+            </div>
+        )}
 
     </div>
   );

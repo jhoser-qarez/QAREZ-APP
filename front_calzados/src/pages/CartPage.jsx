@@ -54,7 +54,7 @@ function CartPage() {
             className="flex flex-col md:flex-row items-center md:items-start bg-white p-4 rounded-lg shadow-md"
           >
             <img
-              src={item.imagen ? `${API_BASE_URL}/${item.imagen}` : 'https://placehold.co/120x120'}
+              src={item.imagen ? `${API_BASE_URL}${item.imagen}` : 'https://placehold.co/120x120'}
               alt={item.nombre}
               className="w-28 h-28 object-cover rounded-md mr-4"
               onError={(e) => {
