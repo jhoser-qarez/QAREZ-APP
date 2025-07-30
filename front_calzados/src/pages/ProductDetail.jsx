@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useCart } from '../context/useCartHook';// ✅ Hook del carrito
+import { useCart } from '../context/useCartHook'; // ✅ Hook del carrito
 import { toast } from 'react-toastify'; // ✅ Notificaciones tipo toast
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
@@ -49,11 +49,51 @@ function ProductDetail() {
     setQuantity(1); // Reiniciar cantidad cuando se cambia variante
   };
 
+  // ✅ Nueva función para manejar el cambio de cantidad de forma más robusta
+  const handleQuantityInputChange = (e) => {
+    let val = parseInt(e.target.value, 10);
+    const maxStock = selectedVariant ? selectedVariant.stock : 1; // Usar stock de la variante seleccionada
+
+    // Asegurarse de que el valor sea un número y esté dentro de los límites
+    if (isNaN(val) || val < 1) {
+      val = 1; // Si no es un número o es menor que 1, establecer a 1
+    } else if (val > maxStock) {
+      val = maxStock; // Si excede el stock, establecer al stock máximo
+    }
+    setQuantity(val);
+  };
+
+  // ✅ Función para manejar los botones de incremento/decremento
+  const handleQuantityButtonClick = (increment) => {
+    const maxStock = selectedVariant ? selectedVariant.stock : 1;
+    let newQuantity = quantity + increment;
+
+    if (newQuantity < 1) {
+      newQuantity = 1;
+    } else if (newQuantity > maxStock) {
+      newQuantity = maxStock;
+    }
+    setQuantity(newQuantity);
+  };
+
+
   const handleAddToCart = () => {
     if (!selectedVariant) {
       toast.error('Por favor, selecciona una talla y color.');
       return;
     }
+    // Asegurarse de que la cantidad no exceda el stock justo antes de añadir al carrito
+    if (quantity > selectedVariant.stock) {
+        toast.error(`No hay suficiente stock para la cantidad seleccionada. Stock disponible: ${selectedVariant.stock}`);
+        setQuantity(selectedVariant.stock); // Ajustar la cantidad al stock máximo
+        return;
+    }
+    if (quantity === 0) { // Evitar añadir 0 items
+        toast.error('La cantidad debe ser al menos 1.');
+        setQuantity(1);
+        return;
+    }
+
 
     addToCart({
       _id: product._id,
@@ -161,20 +201,33 @@ function ProductDetail() {
           {selectedVariant && (
             <div className="mb-6">
               <label htmlFor="quantity" className="block text-gray-700 text-lg font-semibold mb-2">Cantidad:</label>
-              <input
-                id="quantity"
-                type="number"
-                min="1"
-                max={selectedVariant.stock}
-                value={quantity}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value, 10);
-                  if (val >= 1 && val <= selectedVariant.stock) {
-                    setQuantity(val);
-                  }
-                }}
-                className="w-24 p-2 border border-gray-300 rounded-md shadow-sm text-center"
-              />
+              <div className="flex items-center space-x-3"> {/* Contenedor para botones y input */}
+                <button
+                  type="button" // Importante para evitar que envíe el formulario
+                  onClick={() => handleQuantityButtonClick(-1)}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  disabled={quantity <= 1} // Deshabilitar si la cantidad es 1
+                >
+                  -
+                </button>
+                <input
+                  id="quantity"
+                  type="number"
+                  min="1"
+                  max={selectedVariant.stock}
+                  value={quantity}
+                  onChange={handleQuantityInputChange} // ✅ Usar la nueva función para el input
+                  className="w-24 p-2 border border-gray-300 rounded-md shadow-sm text-center"
+                />
+                <button
+                  type="button" // Importante para evitar que envíe el formulario
+                  onClick={() => handleQuantityButtonClick(1)}
+                  className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                  disabled={quantity >= selectedVariant.stock} // Deshabilitar si la cantidad es igual al stock
+                >
+                  +
+                </button>
+              </div>
               <p className="text-sm text-gray-500 mt-1">Stock disponible: {selectedVariant.stock}</p>
             </div>
           )}

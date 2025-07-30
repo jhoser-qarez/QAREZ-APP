@@ -147,9 +147,9 @@ function Checkout() {
               Dirección de Recojo en Tienda:
             </h3>
             <p className="text-base mb-1"><strong>QAREZ Tienda de Calzados</strong></p>
-            <p className="text-base mb-1">Av. Siempre Viva 742, Springfield</p>
+            <p className="text-base mb-1">CC Trujillo</p>
             <p className="text-base mb-1">Horario: Lunes a Viernes de 9:00 AM a 6:00 PM</p>
-            <p className="text-base">Teléfono: +51 987 654 321</p>
+            <p className="text-base">Teléfono: +51 997 572 736</p>
           </div>
         )}
 
@@ -176,7 +176,7 @@ function Checkout() {
             <option value="Yape">Yape</option>
             <option value="Plin">Plin</option>
             <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-            <option value="Tarjeta de Crédito/Débito">Tarjeta de Crédito/Débito</option>
+            
           </select>
         </div>
 
